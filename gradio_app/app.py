@@ -1,8 +1,7 @@
 import gradio as gr
 import molviewspec as mvs
+from gradio_molecule3d import Molecule3D
 import os
-
-pdb_id = st.text_input("file name", value="6vjj.cif")
 
 def plot_molecule(pdb_id: str):
     """Plot a molecular structure from a CIF file using MolViewSpec.
@@ -31,19 +30,20 @@ def plot_molecule(pdb_id: str):
     builder = mvs.create_builder()
 
     structure = builder.download(url='local.cif').parse(format='mmcif').model_structure()
-
     structure.component(selector="polymer").representation().color(custom=dict(molstar_use_default_coloring=True))
-
     structure.component(selector="ligand").representation().color(color="blue")
 
 
-#builder.molstar_streamlit(data={'local.cif': cif_data}, width=500, height=400)
+    builder.get_molstar_html(cif_data)
+    #builder.molstar_streamlit(data={'local.cif': cif_data}, width=500, height=400)
+
+#pdb_id = st.text_input("file name", value="6vjj.cif")
 
 # Create a standard Gradio interface
 demo = gr.Interface(
     fn=plot_molecule,
-    inputs=["textbox"],
-    outputs="number",
+    inputs=gr.Text(label="CIF File Name (without .cif extension)", placeholder="Enter CIF file name"),
+    outputs=gr.HTML(label="Molecular Structure Visualization"),
     title="Mol* Custom Component",
     description="Enter a CIF file name (without .cif extension) to visualize the molecular structure.",
 )
