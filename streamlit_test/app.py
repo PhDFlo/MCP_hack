@@ -21,4 +21,4 @@ structure.component(selector="ligand").representation().color(color="blue")
 #print(builder.get_state())
 
 #builder.molstar_streamlit()
-builder.molstar_streamlit(data={'local.cif': cif_data}, width=500, height=400)
+builder.molstar_gradio(data={'local.cif': cif_data}, width=500, height=400)
