@@ -6,17 +6,19 @@ st = gemmi.read_structure('6vjj.cif')
 st.write_minimal_pdb('output.pdb')
 
 # prediction routine
-def predict(x):
-    return x
+def convert_cif_to_pdb(cif_name):
+    print(cif_name.split('.cif')[0])
+    pdb_name = cif_name.split('.cif')[0] + '.pdb'
+    st = gemmi.read_structure(cif_name)
+    st.write_minimal_pdb(pdb_name)
+    return pdb_name
 
 reps = [{"model": 0,"style": "cartoon","color": "whiteCarbon"}]
 
-Molecule3D(label="Molecule3D", reps=reps)
-
 with gr.Blocks() as demo:
-    inp = gr.Textbox(placeholder="Molecule name")#Molecule3D(label="Molecule3D", reps=reps)
+    inp = gr.Textbox(placeholder="Molecule file path", label="Input CIF file")
     btn = gr.Button("Run")
     out = Molecule3D(label="Molecule3D", reps=reps)
-    btn.click(fn=predict, inputs=[inp], outputs=[out])
+    btn.click(fn=convert_cif_to_pdb, inputs=[inp], outputs=[out])
 
 demo.launch(ssr_mode=False)
