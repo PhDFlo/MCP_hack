@@ -6,7 +6,7 @@ st.header("Mol* Custom Component")
 
 pdb_id = st.text_input("file name", value="6vjj.cif")
 
-with open(os.path.join("./cif_files",pdb_id)) as f:
+with open(os.path.join("./",pdb_id)) as f:
     cif_data = f.read()
 
 builder = mvs.create_builder()
@@ -21,4 +21,4 @@ structure.component(selector="ligand").representation().color(color="blue")
 #print(builder.get_state())
 
 #builder.molstar_streamlit()
-builder.molstar_gradio(data={'local.cif': cif_data}, width=500, height=400)
+builder.molstar_streamlit(data={'local.cif': cif_data}, width=500, height=400)
