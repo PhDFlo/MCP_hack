@@ -1,5 +1,9 @@
 import gradio as gr
 from gradio_molecule3d import Molecule3D
+import gemmi
+
+st = gemmi.read_structure('6vjj.cif')
+st.write_minimal_pdb('output.pdb')
 
 # prediction routine
 def predict(x):
