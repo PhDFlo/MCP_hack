@@ -19,6 +19,11 @@ A test implementation using Modal.com for cloud computation:
 - Includes utility functions for numerical operations
 - Demonstrates Modal.com integration patterns
 
+Run it with 
+```bash
+modal run square_root.py
+```
+
 ### 3. Molecular Visualization Notebooks (`notebooks_molviewspec/`)
 Jupyter notebooks for molecular structure visualization:
 - Contains example notebooks for structure visualization
@@ -32,20 +37,45 @@ A web interface built with Streamlit for:
 - File upload and processing
 - Results visualization and analysis
 
+### 5. Gradio App
+A web interface built with Gradio for:
+- Interactive molecular structure visualization
+- File upload and processing
+- Results visualization and analysis
+
+Run it with 
+```bash
+gradio app_molecule3d.py
+`````` 
 ## Setup and Installation
 
 Each component has its own `pyproject.toml` file for dependency management. To set up any component:
 
 1. Navigate to the component directory
-2. Create a virtual environment:
+3. If necessary install uv with instructions here: https://docs.astral.sh/uv/getting-started/installation/
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+3. Create a virtual environment:
+You can create one by folder for instance.
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Linux/Mac
+   uv venv 
+   source .venv/bin/activate
+   uv pip install gradio[mcp] # Works only on a bash shell and not on zsh
    ```
-3. Install dependencies:
-   ```bash
-   pip install -e .
-   ```
+
+4. Create a token to access the Modal API 
+```
+python3 -m modal setup
+```
+See description here: https://modal.com/apps/charlotte-chaps/main
+This command will open a Modal page to create a API token.
+
+5. Note for a new component creation
+Start by running the following command to create your `pyproject.toml`file:
+```bash
+uv init
+``````
 
 ## Usage
 
